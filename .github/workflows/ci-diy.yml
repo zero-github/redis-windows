@@ -46,6 +46,7 @@ jobs:
         run: |
           workspace=$(pwd)
           sed -i 's/__GNU_VISIBLE/1/' /d/a/_temp/msys64/usr/include/dlfcn.h
+          sed -i 's/WARNINGS=-Wall -Wextra -Werror -Wstrict-prototypes -Wwrite-strings -Wno-missing-field-initializers/WARNINGS=-Wall -Wextra -Wstrict-prototypes -Wwrite-strings -Wno-missing-field-initializers/' $workspace/redis-${{ inputs.tag_name }}/deps/hiredis/Makefile
           cd redis-${{ inputs.tag_name }} && make -i PREFIX=$workspace/dist install BUILD_TLS=yes
           cp $workspace/README.md $workspace/start.bat /d/a/_temp/msys64/usr/bin/msys-2.0.dll /d/a/_temp/msys64/usr/bin/msys-crypto-3.dll /d/a/_temp/msys64/usr/bin/msys-ssl-3.dll redis.conf sentinel.conf $workspace/dist/bin/
           cd $workspace/dist/
